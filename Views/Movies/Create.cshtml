@@ -1,0 +1,132 @@
+@using Movie_01.Data.ViewModels
+@model NewMovieVM
+
+@{
+    ViewData["Title"] = "Thêm phim";
+}
+
+<style>
+    .select-image {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h5>Thêm phim</h5>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col">
+                    @* Ten phim *@
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input type="text" asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    @* Khoi chieu *@
+                    <div class="mb-3">
+                        <label asp-for="StartDate" class="form-label"></label>
+                        <input type="date" asp-for="StartDate" class="form-control">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+
+                    @* Ket thuc *@
+                    <div class="mb-3">
+                        <label asp-for="EndDate" class="form-label"></label>
+                        <input type="date" asp-for="EndDate" class="form-control">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+
+                    @* Gia *@
+                    <div class="mb-3">
+                        <label asp-for="Price" class="form-label"></label>
+                        <input type="number" step="any" asp-for="Price" class="form-control">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    @* Duong dan anh *@
+                    <div class="input-group input-group-sm mb-3">
+                        <img alt="Ảnh phim" id="ImageURLPreview" style="width: 100px;">
+
+                        <textarea asp-for="ImageURL" class="form-control"
+                            style="resize: none; display: none;"></textarea>
+
+                        <div class="input-group-text">
+                            <label class="btn btn-outline-secondary border-0 select-image">
+                                <i class="bi bi-image-fill"></i> Chọn ảnh
+                                <input class="form-control" asp-for="Image" style="display: none;">
+                            </label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    @* Chon the loai *@
+                    <div class="mb-3">
+                        <label asp-for="CategoryId" class="form-label"></label>
+                        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select"></select>
+                    </div>
+
+                    @* Chon rap *@
+                    <div class="mb-3">
+                        <label asp-for="CinemaId" class="form-label"></label>
+                        <select asp-for="CinemaId" class="form-select" asp-items="ViewBag.Cinemas"></select>
+                        <span asp-validation-for="CinemaId" class="text-danger"> </span>
+                    </div>
+
+                    @* Chon nha san xuat *@
+                    <div class="mb-3">
+                        <label asp-for="ProducerId" class="form-label"></label>
+                        <select asp-for="ProducerId" class="form-select" asp-items="ViewBag.Producers"></select>
+                        <span asp-validation-for="ProducerId" class="text-danger"></span>
+                    </div>
+
+                    @* Chon dien vien *@
+                    <div class="mb-3">
+                        <label asp-for="ActorIds" class="form-label"></label>
+                        <select asp-for="ActorIds" asp-items="ViewBag.Actors" size="7"
+                            class="form-select chosen-select"></select>
+                        <span asp-validation-for="ActorIds" class="text-danger"></span>
+                    </div>
+
+                    @* Mo ta *@
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <button type="submit" class="btn btn-sm btn-outline-success me-2">Thêm</button>
+                <a asp-action="Index" class="btn btn-sm btn-outline-primary">Bỏ qua</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $("#Image").on("change", function () {
+        var imageURLPreview = document.getElementById("ImageURLPreview");
+        imageURLPreview.src = URL.createObjectURL(this.files[0]);
+        imageURLPreview.onload = function () {
+            URL.revokeObjectURL(imageURLPreview.src);
+        }
+    });
+
+    $("#ActorIds").chosen({
+        placeholder_text_multiple: "Chọn diễn viên"
+    });
+</script>
+}

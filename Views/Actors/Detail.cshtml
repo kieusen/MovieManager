@@ -1,0 +1,51 @@
+@model Actor
+@{
+    ViewData["Title"] = "Chi tiết diễn viên";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h5 class="text-info">Diễn viên @Model.Name</h5>
+
+        <div class="d-flex align-items-center">
+            <div class="me-5 text-center">
+                <img src="~/images/actors/@Model.ProfilePictureURL" alt="Ảnh diễn viên" id="ImageURLPreview"
+                   class="image-circle-lg">
+            </div>
+
+            <form class="flex-grow-1">
+                <fieldset disabled>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name"></label>
+                        <input type="text" class="form-control" asp-for="Name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Bio"></label>
+                        <textarea class="form-control" rows="5" asp-for="Bio"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="d-flex justify-content-center">
+                    @if (User.IsInRole(@UserRoles.Admin))
+                    {
+                        <a class="btn btn-sm btn-outline-primary me-2" asp-action="Edit" asp-route-id="@Model.Id">
+                            Sửa diễn viên
+                        </a>
+
+                        <a class="btn btn-sm btn-outline-info" asp-action="Index">
+                            Danh sách diễn viên
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-sm btn-outline-info" asp-controller="Movies" asp-action="Index">
+                            Trang chủ
+                        </a>
+                    }
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

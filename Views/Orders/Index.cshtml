@@ -1,0 +1,86 @@
+@model PaginatedList<Order>
+
+@{
+    ViewData["Title"] = "Danh sách đơn hàng";
+    var Pager = new Pager();
+    if (ViewBag.Pager != null)
+    {
+        Pager = ViewBag.Pager;
+    }
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <h3 class="text-center">@ViewData["Title"]</h3>
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Đơn hàng</th>
+                    <th>Danh sách phim</th>
+                    <th class="text-end">Tổng tiền</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(@UserRoles.Admin))
+                    {
+                        <th class="text-center">Người dùng</th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+
+                        <td>
+                            <table class="table mb-0">
+                                <tbody>
+                                    @foreach (var item in @order.OrderItems)
+                                    {
+                                        <tr class="alert alert-success">
+                                            <td class="text-start">
+                                                @item.Movie.Name
+                                            </td>
+
+                                            <td class="text-center">
+                                                @item.Amount
+                                            </td>
+
+                                            <td class="text-end">
+                                                @item.Price.ToString("C",
+                                            System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))
+                                            </td>
+
+                                            <td class="text-end">
+                                                @((item.Amount * item.Movie.Price).ToString("C",
+                                            System.Globalization.CultureInfo.GetCultureInfo("vi-VN")))
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+
+                        <td class="text-end">
+                            @order.OrderItems.Select(o => o.Price * o.Amount).Sum().ToString("C",
+                        System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))
+                        </td>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            @if (!string.IsNullOrEmpty(order.UserId))
+                            {
+                                <td class="text-center">@order.User.FullName</td>
+                            }
+                            else
+                            {
+                                <td class="text-center">-</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Html.PartialAsync("_Pagination", Pager)

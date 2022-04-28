@@ -1,0 +1,44 @@
+@inject UserManager<ApplicationUser> UserManager
+
+@if (!User.Identity.IsAuthenticated)
+{
+    // Chua dang nhap
+    <a class="btn btn-outline-success mx-2" asp-controller="Account" asp-action="Login">
+        <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+    </a>
+
+    <a class="btn btn-outline-success" asp-controller="Account" asp-action="Register">
+        <i class="bi bi-box-arrow-in-right"></i> Đăng ký
+    </a>
+}
+else
+{
+
+    <div class="dropdown mx-2">
+        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown"
+        arial-expanded="false">
+            <i class="bi bi-person-badge"></i> Xin chào @UserManager.GetUserName(User)
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+            <li>
+                <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                    <i class="bi bi-list"></i> Đơn hàng
+                </a>
+                @if (User.IsInRole(@UserRoles.Admin))
+                {
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                        <i class="bi bi-people"></i> Người dùng
+                    </a>
+                }
+
+            </li>
+        </ul>
+    </div>
+
+    <form asp-controller="Account" asp-action="Logout">
+        <button class="btn btn-outline-danger">
+            <i class="bi bi-box-arrow-in-right"></i> Đăng xuất
+        </button>
+    </form>
+}

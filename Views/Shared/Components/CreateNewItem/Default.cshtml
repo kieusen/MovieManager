@@ -1,0 +1,9 @@
+@model string
+@if (User.IsInRole(@UserRoles.Admin))
+{
+    <div>
+        <a class="btn btn-sm btn-success text-white" asp-action="Create" asp-controller="@Model">
+            <i class="bi bi-plus-circle"></i> Thêm mới
+        </a>
+    </div>
+}

@@ -1,0 +1,120 @@
+@model Movie
+@{
+    ViewData["Title"] = "Thông tin phim";
+}
+
+<style>
+    .img-movie {
+        width: 300px;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<div class="row">
+    <div class="col col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header text-white bg-info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="m-0">@Model.Name</p>
+                    @if (User.IsInRole(@UserRoles.Admin))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="text-white">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <div class="d-flex">
+                <div>
+                    <img src="~/images/movies/@Model.ImageURL" alt="@Model.Name" class="img-movie">
+                </div>
+
+                <div class="card-body">
+                    <p>@Model.Description</p>
+                    <p>
+                        <strong>Thể loại: </strong>
+                        <a asp-controller="Categories" asp-action="Detail" asp-route-id="@Model.CategoryId"
+                            class="text-decoration-none">@Model.Category.Name</a>
+                    </p>
+                    <p>
+                        <strong>Rạp: </strong>
+                        <a asp-controller="Cinemas" asp-action="Detail" asp-route-id="@Model.CinemaId"
+                            class="text-decoration-none">@Model.Cimena.Name</a>
+                    </p>
+                    <p>
+                        <strong>Nhà sản xuất: </strong>
+                        <a asp-controller="Producers" asp-action="Detail" asp-route-id="@Model.ProducerId"
+                            class="text-decoration-none">@Model.Producer.Name</a>
+                    </p>
+                    <p>
+                        <strong>Khởi chiếu: </strong>
+                        @Model.StartDate.ToString("dd/MM/yyyy")
+                    </p>
+                    <p>
+                        <strong>Kết thúc: </strong>
+                        @Model.EndDate.ToString("dd/MM/yyyy")
+                    </p>
+
+                    <div>
+                        @if (DateTime.Now >= @Model.StartDate && DateTime.Now <= @Model.EndDate)
+                        {
+                            <span class="badge bg-success text-white">
+                                Đang chiếu
+                            </span>
+                        }
+                        else if (DateTime.Now > @Model.EndDate)
+                        {
+                            <span class="badge bg-danger text-white">
+                                Ngừng chiếu
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary text-white">
+                                Sắp chiếu
+                            </span>
+                        }
+                    </div>
+
+                    <div class="d-flex flex-wrap my-2 align-items-center">
+                        <p class="me-3"><strong>Diễn viên</strong></p>
+                        @foreach (var actor in @Model.Movies_Actors)
+                        {
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="d-flex flex-column me-2">
+                                    <a asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.ActorId"
+                                    class="text-decoration-none mb-2 me-2">
+                                        <img src="~/images/actors/@actor.Actor.ProfilePictureURL" alt="@actor.Actor.Name"
+                                        class="image-circle-sm">
+                                    </a>
+
+
+                                    <a asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.ActorId"
+                                    class="text-decoration-none">
+                                        @actor.Actor.Name
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer px-1">
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-sm btn-outline-success @((DateTime.Now > Model.EndDate) ? "disabled" : "")"
+                        asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@Model.Id">
+                        <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng (@Model.Price.ToString("C",
+                        System.Globalization.CultureInfo.GetCultureInfo("vi-VN")))
+                    </a>
+
+                    <a class="btn btn-sm btn-outline-primary" asp-action="Index">
+                        Danh sách phim
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

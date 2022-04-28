@@ -1,0 +1,134 @@
+@model IEnumerable<Movie>
+@{
+    ViewData["Title"] = "Movie";
+}
+
+<style>
+    .description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* number of lines to show */
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin: 0;
+    }
+
+    .img-movie {
+        width: 200px;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-4 mb-3">
+                <div class="card" style="max-width: 600px; height: 400px">
+                    <div class="card-header text-white bg-info">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Detail" asp-route-id="@item.Id"
+                        class="text-white text-decoration-none">@item.Name</a>
+                            @if (User.IsInRole(@UserRoles.Admin))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="text-white">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0 d-flex">
+                        <div>
+                            <a asp-action="Detail" asp-route-id="@item.Id">
+                                <img src="~/images/movies/@item.ImageURL" class="img-movie" alt="@item.Name">
+                            </a>
+                        </div>
+                        <div class="px-2 py-0">
+                            <div class="d-flex flex-column justify-content-between h-100">
+                                <p>
+                                <p class="description">@item.Description</p>
+                                <small><a asp-action="Detail" asp-route-id="@item.Id" class="text-primary">Xem thêm</a>
+                                </small>
+                                </p>
+
+                                <div>
+                                    <span>
+                                        <strong>Rạp: </strong>
+                                        @item.Cimena.Name
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        <strong>Nhà SX: </strong>
+                                        @item.Producer.Name
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        <strong>Thể loại: </strong>
+                                        @item.Category.Name
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        <strong>Khởi chiếu: </strong>
+                                        @item.StartDate.ToString("dd/MM/yyyy")
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        <strong>Kết thúc: </strong>
+                                        @item.EndDate.ToString("dd/MM/yyyy")
+                                    </span>
+                                </div>
+
+                                <div class="my-2">
+                                    @if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+                                    {
+                                        <span class="badge bg-success text-white">
+                                            Đang chiếu
+                                        </span>
+                                    }
+                                    else if (DateTime.Now > item.EndDate)
+                                    {
+                                        <span class="badge bg-danger text-white">
+                                            Ngừng chiếu
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-primary text-white">
+                                            Sắp chiếu
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer px-1">
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-sm btn-outline-success @((DateTime.Now > item.EndDate) ? "disabled" : "")"
+                        asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng (@item.Price.ToString("C",
+                        System.Globalization.CultureInfo.GetCultureInfo("vi-VN")))
+                            </a>
+                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@await Html.PartialAsync("_CreateNewItem", "Movies")

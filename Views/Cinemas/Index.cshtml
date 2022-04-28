@@ -1,0 +1,108 @@
+@model PaginatedList<Cinema>
+@{
+    ViewData["Title"] = "Danh sách rạp";
+
+    var Pager = new Pager();
+    int stt = 0;
+    int id = 0;
+    string name = "";
+    int pageCurrent = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        Pager = ViewBag.Pager;
+        pageCurrent = Pager.CurrentPage;
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+        <div class="d-flex justify-content-between">
+            <h5 class="text-info">Danh sách rạp</h5>
+            <vc:create-new-item controller="Cinemas"></vc:create-new-item>
+        </div>
+
+        @* @await Component.InvokeAsync("CreateNewItem", new { controller = "Cinemas" }) *@
+
+        @if (Model != null)
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr class="text-center">
+                            <th>STT</th>
+                            <th>Ảnh</th>
+                            <th class="text-start">Tên rạp</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <span>@(stt = stt + 1)</span>
+                                </td>
+                                <td class="text-center">
+                                    <img src="~/images/cinemas/@item.LogoURL" alt="@item.Name" class="image-circle-sm">
+                                </td>
+                                <td> @Html.DisplayFor(m => item.Name) </td>
+                                <td class="text-center">
+                                    <a class="btn btn-sm btn-outline-info" asp-action="Detail" asp-route-id="@item.Id">
+                                        <i class="bi bi-eye"></i> Chi tiết
+                                    </a>
+
+                                    @if (User.IsInRole(@UserRoles.Admin))
+                                    {
+                                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">
+                                            <i class="bi bi-pencil-square"></i> Sửa
+                                        </a>
+
+                                        <!-- Button trigger modal delete -->
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#mdDelete">
+                                            @{
+                                                id = item.Id;
+                                                name = item.Name;
+                                            }
+                                            <i class="bi bi-trash"></i> Xóa
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="mdDelete" tabindex="-1" aria-labelledby="mdDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdDeleteLabel">Xóa rạp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn thật sự muốn xóa rạp @name?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@id" asp-route-page="@pageCurrent">
+                    <i class="bi bi-trash"></i> Xóa
+                </a>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                    Bỏ qua
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("_Pagination", Pager)

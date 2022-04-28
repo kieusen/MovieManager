@@ -1,0 +1,106 @@
+@model ShoppingCartVM
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <h3 class="text-center">@ViewData["Title"]</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Phim</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Tổng tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                    {
+                        <tr>
+                            <td>@item.Movie.Name</td>
+                            <td class="text-center">@item.Amount</td>
+                            <td class="text-end">@item.Movie.Price.ToString("C",
+                        System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))</td>
+                            <td class="text-end">
+                                @((item.Amount * item.Movie.Price).ToString("C",
+                        System.Globalization.CultureInfo.GetCultureInfo("vi-VN")))
+                            </td>
+                            <td class="text-center">
+                                <a class="text-danger text-decoration-none" asp-controller="Orders"
+                            asp-action="RemoveFromShoppingCart" asp-route-id="@item.Movie.Id">
+                                    <i class="bi bi-cart-dash"></i>
+                                </a>
+
+                                <a class="text-success text-decoration-none" asp-controller="Orders"
+                            asp-action="AddToShoppingCart" asp-route-id="@item.Movie.Id">
+                                    <i class="bi bi-cart-plus"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end">
+                            <strong>Tổng cộng: </strong>
+                        </td>
+                        <td class="text-end">
+                            @Model.ShoppingCartTotal.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="d-flex justify-content-center">
+                <a asp-controller="Orders" asp-action="CompleteOrder" class="btn btn-outline-primary me-2">
+                    Hoàn thành
+                </a>
+                <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-success">
+                    Mua thêm
+                </a>
+            </div>
+        </div>
+    </div>
+}
+<!-- Modal Message -->
+<div class="modal fade" id="mdMessage" tabindex="-1" aria-labelledby="mdMessageLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdMessageLabel">Mua hàng thành công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn đã mua hàng thành công!
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-sm btn-primary" asp-action="Index" asp-controller="Movies">
+                    Trang chủ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        var showModel = '@ViewBag.Success';
+        if (showModel == 1) {
+            $("#mdMessage").modal('show');
+        }
+    });
+
+    $("#mdMessage").on("hidden.bs.modal", function () {
+        //window.location.href = "/{controller}/{action}/{params}";
+        window.location.href = "/Movies/Index/";
+    });    
+</script>
+}

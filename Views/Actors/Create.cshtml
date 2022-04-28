@@ -1,0 +1,64 @@
+@model Actor
+@{
+    ViewData["Title"] = "Thêm diễn viên";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h5 class="text-info">Thêm diễn viên</h5>
+        <div class="d-flex align-items-center">
+            <div class="me-5 text-center">                
+                <img alt="Ảnh diễn viên" id="ImageURLPreview" class="image-circle-sm">
+                <br>
+                <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+            </div>
+            <form asp-action="Create" class="flex-grow-1" enctype="multipart/form-data" id="frmCreate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>                 
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Bio"></label>
+                    <textarea class="form-control" rows="5" asp-for="Bio"></textarea>
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                @* Duong dan anh *@
+                <div class="input-group input-group-sm mb-3">                 
+                    <input asp-for="ProfilePictureURL" id="ProfilePictureURL" class="form-control" readonly hidden>
+                    <div class="input-group-text">
+                        <label class="btn btn-outline-secondary border-0 select-image">
+                            <i class="bi bi-image-fill"></i> Chọn ảnh
+                            <input class="form-control" asp-for="ProfilePicture" style="display: none;">
+                        </label>
+                    </div>
+                </div>                                       
+
+                <div class="d-flex justify-content-center mt-2">
+                    <button class="btn btn-sm btn-outline-success me-2" type="submit">
+                        Thêm
+                    </button>
+                    <a class="btn btn-sm btn-outline-info" asp-action="Index">
+                        Bỏ qua
+                    </a>                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>    
+    $("#ProfilePicture").on("change", function () {
+        var imageURLPreview = document.getElementById("ImageURLPreview");
+        imageURLPreview.src = URL.createObjectURL(this.files[0]);
+        imageURLPreview.onload = function () {
+            URL.revokeObjectURL(imageURLPreview.src);
+        }
+    });
+</script>
+}

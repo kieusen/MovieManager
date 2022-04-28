@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-controller="Movies" asp-action="Index">
+            <img src="~/images/movie-logo.png" alt="Logo" style="width: 40px;">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a asp-controller="Movies" asp-action="Index" class="nav-link">
+                        <i class="bi bi-film"></i> Phim
+                    </a>
+                </li>
+
+                @if (User.IsInRole(@UserRoles.Admin))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear"></i> Quản lý
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li>
+                                <a class="dropdown-item" asp-controller="Categories" asp-action="Index">
+                                    <i class="bi bi-film"></i> Thể loại
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Actors" asp-action="Index">
+                                    <i class="bi bi-person-video2"></i> Diễn viên
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Cinemas" asp-action="Index">
+                                    <i class="bi bi-building"></i> Rạp
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Producers" asp-action="Index">
+                                    <i class="bi bi-headset"></i> Nhà sản xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+
+            <!-- Search -->
+            @{
+                // Lay ten Controller
+                string handlingController = this.ViewContext.RouteData.Values["controller"].ToString();
+
+                if (handlingController.Equals("Movies"))
+                {
+                    <form class="d-flex" asp-action="Filter" asp-controller="Movies">
+                        <input class="form-control me-2" name="searchString" placeholder="Tìm">
+                        <button class="btn btn-sm btn-outline-success" type="submit">Tìm</button>
+                    </form>
+                }
+            }
+
+            <partial name="_Identity"></partial>
+
+            <!--Shopping cart-->
+            @await Component.InvokeAsync("ShoppingCartSummary")
+        </div>
+
+    </div>
+</nav>
