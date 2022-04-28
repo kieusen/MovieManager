@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Movie_01.Data.Base;
+using MovieManager.Data.Base;
 
-namespace Movie_01.Models
+namespace MovieManager.Models
 {
     public class Producer : IEntityBase
     {

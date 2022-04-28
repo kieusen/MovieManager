@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Movie_01.csproj",
+                "${workspaceFolder}/MovieManager.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Movie_01.csproj",
+                "${workspaceFolder}/MovieManager.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Movie_01.csproj"
+                "${workspaceFolder}/MovieManager.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

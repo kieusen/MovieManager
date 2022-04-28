@@ -1,6 +1,6 @@
-using Movie_01.Data.Cart;
+using MovieManager.Data.Cart;
 
-namespace Movie_01.Data.ViewModels
+namespace MovieManager.Data.ViewModels
 {
     public class ShoppingCartVM
     {

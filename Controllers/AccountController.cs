@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Movie_01.Data;
-using Movie_01.Data.Cart;
-using Movie_01.Data.Helpers;
-using Movie_01.Data.ViewModels;
-using Movie_01.Models;
+using MovieManager.Data;
+using MovieManager.Data.Cart;
+using MovieManager.Data.Helpers;
+using MovieManager.Data.ViewModels;
+using MovieManager.Models;
 
-namespace Movie_01.Controllers
+namespace MovieManager.Controllers
 {
     public class AccountController : Controller
     {

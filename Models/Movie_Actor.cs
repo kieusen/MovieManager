@@ -1,4 +1,4 @@
-namespace Movie_01.Models
+namespace MovieManager.Models
 {
     public class Movie_Actor
     {

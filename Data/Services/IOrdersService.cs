@@ -1,7 +1,7 @@
-using Movie_01.Data.Helpers;
-using Movie_01.Models;
+using MovieManager.Data.Helpers;
+using MovieManager.Models;
 
-namespace Movie_01.Data.Services
+namespace MovieManager.Data.Services
 {
     public interface IOrdersService
     {

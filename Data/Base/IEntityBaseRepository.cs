@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
-using Movie_01.Data.Helpers;
+using MovieManager.Data.Helpers;
 
-namespace Movie_01.Data.Base
+namespace MovieManager.Data.Base
 {
     public interface IEntityBaseRepository <T> where T: class, IEntityBase, new ()
     {

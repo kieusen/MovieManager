@@ -1,12 +1,12 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movie_01.Data.Cart;
-using Movie_01.Data.Helpers;
-using Movie_01.Data.Services;
-using Movie_01.Data.ViewModels;
+using MovieManager.Data.Cart;
+using MovieManager.Data.Helpers;
+using MovieManager.Data.Services;
+using MovieManager.Data.ViewModels;
 
-namespace Movie_01.Controllers
+namespace MovieManager.Controllers
 {
     [Authorize]
     public class OrdersController : Controller

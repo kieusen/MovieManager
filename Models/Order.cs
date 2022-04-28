@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Movie_01.Models
+namespace MovieManager.Models
 {
     public class Order
     {

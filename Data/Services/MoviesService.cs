@@ -1,10 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Movie_01.Data.Base;
-using Movie_01.Data.ViewModels;
-using Movie_01.Models;
+using MovieManager.Data.Base;
+using MovieManager.Data.ViewModels;
+using MovieManager.Models;
 
-namespace Movie_01.Data.Services
+namespace MovieManager.Data.Services
 {
     public class MoviesService : EntityBaseRepository<Movie>, IMoviesService
     {

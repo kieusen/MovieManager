@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Movie_01.Views.Shared.Components.CreateNewItem
+namespace MovieManager.Views.Shared.Components.CreateNewItem
 {
     [ViewComponent]
     public class CreateNewItem : ViewComponent

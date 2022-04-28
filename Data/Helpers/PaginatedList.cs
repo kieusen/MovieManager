@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Movie_01.Data.Helpers
+namespace MovieManager.Data.Helpers
 {
     public class PaginatedList<T> : List<T>
     {

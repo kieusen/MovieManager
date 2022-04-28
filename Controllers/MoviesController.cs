@@ -6,12 +6,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Movie_01.Data.Helpers;
-using Movie_01.Data.Services;
-using Movie_01.Data.ViewModels;
-using Movie_01.Models;
+using MovieManager.Data.Helpers;
+using MovieManager.Data.Services;
+using MovieManager.Data.ViewModels;
+using MovieManager.Models;
 
-namespace Movie_01.Controllers
+namespace MovieManager.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
     public class MoviesController : Controller

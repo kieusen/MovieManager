@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Movie_01.Data.Helpers
+namespace MovieManager.Data.Helpers
 {
     public class CustomIdentityErrorDescriber : IdentityErrorDescriber
     {

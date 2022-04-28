@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Movie_01.Models
+namespace MovieManager.Models
 {
     public class ApplicationUser : IdentityUser
     {

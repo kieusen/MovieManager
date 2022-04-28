@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Movie_01.Data;
+using MovieManager.Data;
 
 #nullable disable
 
-namespace Movie_01.Migrations
+namespace MovieManager.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20220303114448_InitialCreate")]
@@ -147,7 +147,7 @@ namespace Movie_01.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Actor", b =>
+            modelBuilder.Entity("MovieManager.Models.Actor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Actors");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.ApplicationUser", b =>
+            modelBuilder.Entity("MovieManager.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -236,7 +236,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Category", b =>
+            modelBuilder.Entity("MovieManager.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +251,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Cinema", b =>
+            modelBuilder.Entity("MovieManager.Models.Cinema", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,7 +270,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Cinemas");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Movie", b =>
+            modelBuilder.Entity("MovieManager.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -316,7 +316,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Movie_Actor", b =>
+            modelBuilder.Entity("MovieManager.Models.Movie_Actor", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("INTEGER");
@@ -331,7 +331,7 @@ namespace Movie_01.Migrations
                     b.ToTable("Movies_Actors");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Producer", b =>
+            modelBuilder.Entity("MovieManager.Models.Producer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -369,7 +369,7 @@ namespace Movie_01.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Movie_01.Models.ApplicationUser", null)
+                    b.HasOne("MovieManager.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -378,7 +378,7 @@ namespace Movie_01.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Movie_01.Models.ApplicationUser", null)
+                    b.HasOne("MovieManager.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -393,7 +393,7 @@ namespace Movie_01.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie_01.Models.ApplicationUser", null)
+                    b.HasOne("MovieManager.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -402,28 +402,28 @@ namespace Movie_01.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Movie_01.Models.ApplicationUser", null)
+                    b.HasOne("MovieManager.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Movie", b =>
+            modelBuilder.Entity("MovieManager.Models.Movie", b =>
                 {
-                    b.HasOne("Movie_01.Models.Category", "Category")
+                    b.HasOne("MovieManager.Models.Category", "Category")
                         .WithMany("Movies")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie_01.Models.Cinema", "Cimena")
+                    b.HasOne("MovieManager.Models.Cinema", "Cimena")
                         .WithMany("Movies")
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie_01.Models.Producer", "Producer")
+                    b.HasOne("MovieManager.Models.Producer", "Producer")
                         .WithMany()
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -436,15 +436,15 @@ namespace Movie_01.Migrations
                     b.Navigation("Producer");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Movie_Actor", b =>
+            modelBuilder.Entity("MovieManager.Models.Movie_Actor", b =>
                 {
-                    b.HasOne("Movie_01.Models.Actor", "Actor")
+                    b.HasOne("MovieManager.Models.Actor", "Actor")
                         .WithMany("Movies_Actors")
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie_01.Models.Movie", "Movie")
+                    b.HasOne("MovieManager.Models.Movie", "Movie")
                         .WithMany("Movies_Actors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,34 +455,34 @@ namespace Movie_01.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Producer", b =>
+            modelBuilder.Entity("MovieManager.Models.Producer", b =>
                 {
-                    b.HasOne("Movie_01.Models.Producer", null)
+                    b.HasOne("MovieManager.Models.Producer", null)
                         .WithMany("Producers")
                         .HasForeignKey("ProducerId");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Actor", b =>
+            modelBuilder.Entity("MovieManager.Models.Actor", b =>
                 {
                     b.Navigation("Movies_Actors");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Category", b =>
+            modelBuilder.Entity("MovieManager.Models.Category", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Cinema", b =>
+            modelBuilder.Entity("MovieManager.Models.Cinema", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Movie", b =>
+            modelBuilder.Entity("MovieManager.Models.Movie", b =>
                 {
                     b.Navigation("Movies_Actors");
                 });
 
-            modelBuilder.Entity("Movie_01.Models.Producer", b =>
+            modelBuilder.Entity("MovieManager.Models.Producer", b =>
                 {
                     b.Navigation("Producers");
                 });

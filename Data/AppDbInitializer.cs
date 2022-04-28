@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
-using Movie_01.Data.Helpers;
-using Movie_01.Models;
+using MovieManager.Data.Helpers;
+using MovieManager.Models;
 
-namespace Movie_01.Data
+namespace MovieManager.Data
 {
     public class AppDbInitializer 
     {

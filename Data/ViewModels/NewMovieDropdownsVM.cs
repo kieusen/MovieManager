@@ -1,6 +1,6 @@
-using Movie_01.Models;
+using MovieManager.Models;
 
-namespace Movie_01.Data.ViewModels
+namespace MovieManager.Data.ViewModels
 {
     public class NewMovieDropdownsVM
     {

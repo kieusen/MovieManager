@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Movie_01.Data;
-using Movie_01.Data.Cart;
-using Movie_01.Data.Helpers;
-using Movie_01.Data.Services;
-using Movie_01.Models;
+using MovieManager.Data;
+using MovieManager.Data.Cart;
+using MovieManager.Data.Helpers;
+using MovieManager.Data.Services;
+using MovieManager.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services;

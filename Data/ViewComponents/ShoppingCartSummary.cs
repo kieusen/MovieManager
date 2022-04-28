@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Movie_01.Data.Cart;
+using MovieManager.Data.Cart;
 
-namespace Movie_01.Data.ViewComponents
+namespace MovieManager.Data.ViewComponents
 {
     [ViewComponent]
     public class ShoppingCartSummary : ViewComponent

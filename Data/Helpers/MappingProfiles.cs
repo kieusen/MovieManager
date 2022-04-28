@@ -1,8 +1,8 @@
 using AutoMapper;
-using Movie_01.Data.ViewModels;
-using Movie_01.Models;
+using MovieManager.Data.ViewModels;
+using MovieManager.Models;
 
-namespace Movie_01.Data.Helpers
+namespace MovieManager.Data.Helpers
 {
     public class MappingProfiles : Profile
     {

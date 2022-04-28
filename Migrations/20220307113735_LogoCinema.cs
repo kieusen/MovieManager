@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Movie_01.Migrations
+namespace MovieManager.Migrations
 {
     public partial class LogoCinema : Migration
     {

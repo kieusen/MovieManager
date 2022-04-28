@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Movie_01.Models;
+using MovieManager.Models;
 
-namespace Movie_01.Data
+namespace MovieManager.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {

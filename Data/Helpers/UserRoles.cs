@@ -1,4 +1,4 @@
-namespace Movie_01.Data.Helpers
+namespace MovieManager.Data.Helpers
 {
     public static class UserRoles
     {
